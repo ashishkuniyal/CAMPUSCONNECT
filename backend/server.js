@@ -45,8 +45,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // Trust the reverse proxy (Render/Heroku/etc) so rate-limiter works properly
-// Set to true to trust the entire proxy chain
-app.set('trust proxy', true);
+// Set to 1 for Render's single reverse proxy
+app.set('trust proxy', 1);
 
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: process.env.FRONTEND_URL || 'http://localhost:5173', methods: ['GET','POST','PUT','DELETE'] } });
