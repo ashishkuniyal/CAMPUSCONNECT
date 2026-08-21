@@ -85,7 +85,7 @@ function AppContent({ socket, connected }) {
   }
 
   return (
-    <>
+    <div className="relative w-full min-h-screen overflow-x-hidden">
       {/* Background Animated Orbs */}
       <div className="bg-orb bg-orb-1" />
       <div className="bg-orb bg-orb-2" />
@@ -139,6 +139,6 @@ function AppContent({ socket, connected }) {
           </div>
         </footer>
       </div>
-    </>
+    </div>
   );
 }
