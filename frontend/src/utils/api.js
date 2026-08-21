@@ -34,6 +34,10 @@ export function logout() {
 
 // Setup axios interceptor for token refresh
 export function setupAxiosInterceptors() {
+  // Set global base URL for all raw axios calls
+  const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+  axios.defaults.baseURL = apiUrl.replace(/\/api$/, "");
+
   // Request interceptor
   axios.interceptors.request.use(
     (config) => {

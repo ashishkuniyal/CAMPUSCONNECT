@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import axios from "axios";
+import { apiClient } from "../utils/useApi";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   RefreshCw, MapPin, Clock, Users, Trophy,
@@ -289,7 +289,7 @@ export default function Aggregator() {
     setLoading(true);
     setError(null);
     try {
-      const { data: res } = await axios.get("/api/aggregator/fetch");
+      const { data: res } = await apiClient.get("/aggregator/fetch");
       setData(res);
       setUpdated(new Date());
     } catch {
