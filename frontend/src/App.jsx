@@ -25,8 +25,11 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminPortal from "./pages/admin/AdminPortal";
 import NotFound from "./pages/NotFound";
 
-// Initialize Socket.IO client
-const socket = io("/", { path: "/socket.io", transports: ["websocket"] });
+// Initialize Socket.IO client dynamically based on environment
+const SOCKET_URL = import.meta.env.VITE_API_URL 
+  ? import.meta.env.VITE_API_URL.replace(/\/api$/, '') 
+  : "/";
+const socket = io(SOCKET_URL, { path: "/socket.io", transports: ["websocket"] });
 
 export default function App() {
   const [connected, setConnected] = useState(false);
