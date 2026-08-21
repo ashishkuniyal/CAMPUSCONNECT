@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: #6366f1;
+    --muted: #94a3b8;
+  }
+  
+  html, body, #root {
+    @apply h-full w-full bg-background text-gray-100 font-sans antialiased overflow-x-hidden;
+  }
+}
+
+@layer components {
+  /* Premium Glassmorphism Container */
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+  }
+  
+  .glass-card {
+    @apply bg-surface/80 backdrop-blur-md border border-white/5 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-primary-500/50 hover:shadow-[0_8px_30px_rgba(99,102,241,0.15)];
+  }
+
+  .btn-primary {
+    @apply px-5 py-2.5 bg-gradient-to-r from-primary-600 to-indigo-500 text-white font-medium rounded-xl shadow-lg shadow-indigo-500/30 transition-all duration-300 hover:shadow-indigo-500/50 hover:-translate-y-0.5 active:translate-y-0;
+  }
+  
+  .btn-secondary {
+    @apply px-5 py-2.5 bg-white/5 border border-white/10 text-white font-medium rounded-xl transition-all duration-300 hover:bg-white/10;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all;
+  }
+}
+
+/* Background animated orbs */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  opacity: 0.5;
+  animation: blob 10s infinite alternate;
+}
+.bg-orb-1 {
+  background: rgba(99, 102, 241, 0.4);
+  width: 400px;
+  height: 400px;
+  top: -100px;
+  left: -100px;
+}
+.bg-orb-2 {
+  background: rgba(168, 85, 247, 0.3);
+  width: 500px;
+  height: 500px;
+  bottom: -150px;
+  right: -100px;
+  animation-delay: 2s;
+}
+
+/* Error shake animation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
