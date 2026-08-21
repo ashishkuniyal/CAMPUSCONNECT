@@ -48,8 +48,23 @@ const app = express();
 // Set to 1 for Render's single reverse proxy
 app.set('trust proxy', 1);
 
+const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:5173'];
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: process.env.FRONTEND_URL || 'http://localhost:5173', methods: ['GET','POST','PUT','DELETE'] } });
+const io = new Server(server, { cors: corsOptions });
 
 // Security headers
 app.use(helmet({
@@ -57,11 +72,8 @@ app.use(helmet({
   contentSecurityPolicy: false,     // Disable CSP for SPA compatibility
 }));
 
-// Scoped CORS — only allow the configured frontend origin
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-  credentials: true,
-}));
+// Scoped CORS — dynamic for Vercel
+app.use(cors(corsOptions));
 
 // Gzip responses
 app.use(compression());
